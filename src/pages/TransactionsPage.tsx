@@ -4,7 +4,7 @@ import type { RootState } from '../store';
 import { categories } from '../data/categories';
 import { addTransaction, clearFilters, deleteTransaction, setFilter, setSortBy, updateTransaction } from '../store/transactionsSlice';
 import { exportToCSV } from '../utils/csvExport';
-import { Transaction } from '../types';
+import { FilterState, Transaction } from '../types';
 import Modal from '../components/ui/Modal';
 import EmptyState from '../components/ui/EmptyState';
 import TransactionForm from '../components/transactions/TransactionForm';
@@ -54,8 +54,8 @@ const TransactionsPage: React.FC = () => {
       });
   }, [items, filters, sortBy]);
 
-  const handleFilterChange = (field: string, value: string | string[]) => {
-    dispatch(setFilter({ [field]: value } as any));
+  const handleFilterChange = (field: keyof FilterState, value: FilterState[keyof FilterState]) => {
+    dispatch(setFilter({ [field]: value } as Partial<FilterState>));
   };
 
   const handleOpenModal = (transaction: Transaction | null = null) => {

@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store';
+import type { RootState } from './store';
 import PageLayout from './components/layout/PageLayout';
 import DashboardPage from './pages/DashboardPage';
 import TransactionsPage from './pages/TransactionsPage';
@@ -9,7 +10,7 @@ import { useAppSelector } from './store/hooks';
 import { useEffect } from 'react';
 
 function AppContent() {
-  const theme = useAppSelector(state => state.theme);
+  const theme = useAppSelector((state: RootState) => state.theme);
 
   useEffect(() => {
     // Apply theme class to document root

@@ -40,7 +40,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ transaction, onSave, 
     const normalizedAmount = type === 'expense' ? -Math.abs(value) : Math.abs(value);
 
     onSave({
-      id: transaction?.id ?? crypto.randomUUID(),
+      id: transaction?.id ?? (typeof crypto !== 'undefined' && 'randomUUID' in crypto ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`),
       description: description.trim() || 'New transaction',
       amount: normalizedAmount,
       category,
